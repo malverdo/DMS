@@ -86,4 +86,23 @@ class ProviderRepository extends AbstractRepository implements ProviderRepositor
     }
 
 
+    /**
+     * @param RepositoryCriteriaInterface $criteria
+     * @return CollectionInterface
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findByAllCriteria(RepositoryCriteriaInterface $criteria): CollectionInterface
+    {
+        $dbCriteria = $this->dbConnection->createQueryBuilder();
+
+        $this->modifyQuery($dbCriteria, $criteria);
+        $this->modifySort($dbCriteria, $criteria);
+
+        $results = $dbCriteria->executeQuery()->fetchAllAssociative();
+
+        return new ProviderCollection($this->deserialize($results, ProviderEntity::class));
+    }
+
+
 }

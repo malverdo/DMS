@@ -74,13 +74,13 @@ class ProviderService
 
 
     /**
-     * @param int $customerId
+     * @param int $id
      * @return ProviderEntityInterface
      */
-    public function getById(int $customerId): ProviderEntityInterface
+    public function getById(int $id): ProviderEntityInterface
     {
         $providers = $this->providerRepository->findById(
-            ProviderCriteria::create()->setFilterByCustomerId($customerId)->getFilterByCustomerId()
+            ProviderCriteria::create()->setFilterByCustomerId($id)->getFilterByCustomerId()
         );
 
         if (!$providers->count()) {
@@ -92,5 +92,22 @@ class ProviderService
         }
 
         return $providers->current();
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getByAll(): array
+    {
+        $providers = $this->providerRepository->findByAll(
+            ProviderCriteria::create()
+        );
+
+        if (!$providers->count()) {
+            throw new ProviderException('providers not found');
+        }
+
+        return $providers->getEntities();
     }
 }

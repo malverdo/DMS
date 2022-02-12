@@ -33,6 +33,12 @@ interface RepositoryInterface
     public function findById(string $id): ?CollectionInterface;
 
     /**
+     * @param object $object
+     * @return CollectionInterface|null
+     */
+    public function findByAll(object $object): ?CollectionInterface;
+
+    /**
      * @param RepositoryCriteriaInterface $criteria
      * @return CollectionInterface
      */

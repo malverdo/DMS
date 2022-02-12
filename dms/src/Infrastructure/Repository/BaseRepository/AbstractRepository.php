@@ -101,6 +101,19 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
         return $res !== false ? $res : null;
     }
 
+
+    /**
+     * @param object $object
+     * @return CollectionInterface|null
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findByAll(object $object): ?CollectionInterface
+    {
+        $criteria = $this->getCriteria();
+        return $this->findByAllCriteria($criteria);
+    }
+
     /**
      * @param QueryBuilder $dbCriteria
      * @param RepositoryCriteriaInterface $criteria
