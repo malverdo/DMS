@@ -33,7 +33,7 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
     public function __construct(DataBaseConnectionInterface $connection)
     {
         $this->dbConnection = $connection->getConnection();
-        $this->serializer = SerializerBuilder::create()->build();
+        $this->serializer = new SerializerBuilder;
         $this->serializer->setSerializationContextFactory(new CallableSerializationContextFactory(function() {
             $context = new SerializationContext();
             $context->setSerializeNull(true);

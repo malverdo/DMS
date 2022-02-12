@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Controller;
 
+use App\Infrastructure\Entity\ProviderEntity;
 use App\Infrastructure\Factory\ContainerFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,19 @@ class TestController extends AbstractController
      */
     public function test(): Response
     {
-        $smsMessageService = ContainerFactory::build()->get('dms.provider.service');
+        $providerService = ContainerFactory::build()->get('dms.provider.service');
+        $providerRecord = new ProviderEntity();
+        $providerRecord->setAdapter('sms');
+        $providerRecord->setAdapterDebug(true);
+        $providerRecord->setAdapterUrl('url');
+        $providerRecord->setCustomerId(1);
+        $providerRecord->setLogin('test');
+        $providerRecord->setNew(true);
+        $providerRecord->setPassword('password');
+        $providerRecord->setPasswordMd5('passwordMd5');
+        $providerRecord->setSender(['20']);
+
+        $providerService->persist($providerRecord);
 
         return $this->json([
             'message' => 'Welcome to your new controller!',
