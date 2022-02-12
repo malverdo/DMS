@@ -26,7 +26,10 @@ class TestController extends AbstractController
 //        $providerService->persist($providerRecord);
 
 
-        $allProvider = $providerService->getByAll();
+//        $allProvider = $providerService->getByAll();
+        $allProvider = $providerService->getById(3);
+        dd($allProvider);
+
 
         return $this->json([
             'message' => 'Welcome to your new controller!',

@@ -80,7 +80,7 @@ class ProviderService
     public function getById(int $id): ProviderEntityInterface
     {
         $providers = $this->providerRepository->findById(
-            ProviderCriteria::create()->setFilterByCustomerId($id)->getFilterByCustomerId()
+            ProviderCriteria::create()->setFilterById($id)
         );
 
         if (!$providers->count()) {
@@ -97,10 +97,12 @@ class ProviderService
     /**
      *
      * @return array
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     public function getByAll(): array
     {
-        $providers = $this->providerRepository->findByAll(
+        $providers = $this->providerRepository->findByAllCriteria(
             ProviderCriteria::create()
         );
 

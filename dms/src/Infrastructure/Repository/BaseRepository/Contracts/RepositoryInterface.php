@@ -3,6 +3,8 @@
 namespace App\Infrastructure\Repository\BaseRepository\Contracts;
 
 
+use App\Domain\Provider\Contracts\ProviderCriteriaInterface;
+
 /**
  * Class RepositoryInterface
  * @package App\Infrastructure\Repository\BaseRepository\Contracts
@@ -27,16 +29,12 @@ interface RepositoryInterface
     public function countByCriteria(RepositoryCriteriaInterface $criteria): int;
 
     /**
-     * @param string $id
+     * @param RepositoryCriteriaInterface $criteria
      * @return CollectionInterface|null
      */
-    public function findById(string $id): ?CollectionInterface;
+    public function findById(RepositoryCriteriaInterface $criteria): ?CollectionInterface;
 
-    /**
-     * @param object $object
-     * @return CollectionInterface|null
-     */
-    public function findByAll(object $object): ?CollectionInterface;
+
 
     /**
      * @param RepositoryCriteriaInterface $criteria
