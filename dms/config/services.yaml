@@ -31,3 +31,17 @@ services:
     # Классы с коннекторами к бд
     dms.connection.postgres:
         class: App\Infrastructure\Repository\BaseRepository\PostgresConnection
+
+
+    # Репозиторий с указанием коннектора меняется тут
+    dms.provider.repository:
+        class: App\Infrastructure\Repository\Provider\ProviderRepository
+        arguments:
+            - '@dms.connection.postgres'
+
+
+    # Конфигурация сервисов
+    dms.provider.service:
+        class: App\Domain\Provider\ProviderService
+        arguments:
+            - '@dms.provider.repository'
