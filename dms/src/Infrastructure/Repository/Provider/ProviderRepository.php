@@ -80,7 +80,7 @@ class ProviderRepository extends AbstractRepository implements ProviderRepositor
         $this->modifyQuery($dbCriteria, $criteria);
         $this->modifySort($dbCriteria, $criteria);
 
-        $results = $dbCriteria->execute()->fetchAllAssociative();
+        $results = $dbCriteria->executeQuery()->fetchAllAssociative();
 
         return new ProviderCollection($this->deserialize($results, ProviderEntity::class));
     }

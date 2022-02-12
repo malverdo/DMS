@@ -74,13 +74,13 @@ class ProviderService
 
 
     /**
-     * @param string $customerId
+     * @param int $customerId
      * @return ProviderEntityInterface
      */
-    public function getById(string $customerId): ProviderEntityInterface
+    public function getById(int $customerId): ProviderEntityInterface
     {
         $providers = $this->providerRepository->findById(
-            ProviderCriteria::create()->setFilterByCustomerId($customerId)
+            ProviderCriteria::create()->setFilterByCustomerId($customerId)->getFilterByCustomerId()
         );
 
         if (!$providers->count()) {

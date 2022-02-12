@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository\BaseRepository;
 
+use App\Infrastructure\Repository\BaseRepository\Contracts\CollectionInterface;
 use App\Infrastructure\Repository\BaseRepository\Contracts\DataBaseConnectionInterface;
 use App\Infrastructure\Repository\BaseRepository\Contracts\EntityInterface;
 use App\Infrastructure\Repository\BaseRepository\Contracts\RepositoryCriteriaInterface;
@@ -90,13 +91,13 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
     }
 
     /**
-     * @param object $id
-     * @return EntityInterface|null
+     * @param string $id
+     * @return CollectionInterface|null
      */
-    public function findById(object $id): ?EntityInterface
+    public function findById(string $id): ?CollectionInterface
     {
         $criteria = $this->getCriteria()->setFilterById($id);
-        $res = $this->findByCriteria($criteria)->current();
+        $res = $this->findByCriteria($criteria);
         return $res !== false ? $res : null;
     }
 
@@ -115,7 +116,7 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
         if ($criteria->getFilterById() !== null) {
             $dbCriteria
                 ->where(sprintf('%s.%s = :id', $this->getTableAlias(), $this->getKeyName()))
-                ->setParameter(':id', $criteria->getFilterById());
+                ->setParameter('id', $criteria->getFilterById());
         }
     }
 
