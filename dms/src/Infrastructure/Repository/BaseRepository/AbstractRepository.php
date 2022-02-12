@@ -40,6 +40,7 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
             $context->setGroups(['save']);
             return $context;
         }));
+        $this->serializer = SerializerBuilder::create()->build();
     }
 
     public function getDbConnection()

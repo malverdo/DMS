@@ -4,6 +4,7 @@ namespace App\Infrastructure\Entity;
 
 use App\Domain\Provider\Contracts\ProviderEntityInterface;
 use App\Infrastructure\Repository\BaseRepository\AbstractEntity;
+use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Accessor;
@@ -16,6 +17,9 @@ class ProviderEntity extends AbstractEntity implements ProviderEntityInterface
      * @SerializedName("id")
      * @Type("int")
      * @var int
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      */
     protected $id;
 
@@ -42,31 +46,10 @@ class ProviderEntity extends AbstractEntity implements ProviderEntityInterface
 
     /**
      * @SerializedName("sender")
-     * @Type("array")
-     * @var array
-     */
-    protected $sender = [];
-
-    /**
-     * @SerializedName("password_md5")
-     * @Type("bool")
-     * @var bool
-     */
-    protected $passwordMd5;
-
-    /**
-     * @SerializedName("adapter_url")
      * @Type("string")
      * @var string
      */
-    protected $adapterUrl;
-
-    /**
-     * @SerializedName("adapter_debug")
-     * @Type("bool")
-     * @var bool
-     */
-    protected $adapterDebug;
+    protected $sender;
 
     /**
      * @SerializedName("adapter")
@@ -76,83 +59,12 @@ class ProviderEntity extends AbstractEntity implements ProviderEntityInterface
      */
     protected $adapter;
 
-    /**
-     * @var \stdClass
-     */
-    protected $adapterInstance;
-
-    /**
-     * @return string
-     */
-    public function getAdapterUrl(): string
-    {
-        return $this->adapterUrl;
-    }
-
-    /**
-     * @param string $adapterUrl
-     * @return ProviderEntity
-     */
-    public function setAdapterUrl(string $adapterUrl): ProviderEntity
-    {
-        $this->adapterUrl = $adapterUrl;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAdapterDebug(): bool
-    {
-        return $this->adapterDebug;
-    }
-
-    /**
-     * @param bool $adapterDebug
-     * @return ProviderEntity
-     */
-    public function setAdapterDebug(bool $adapterDebug): ProviderEntity
-    {
-        $this->adapterDebug = $adapterDebug;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLogin(): string
-    {
-        return $this->login;
-    }
 
     public function buildAdapter(string $adapter)
     {
-
         $this->adapter = $adapter;
-
-        $password = $this->passwordMd5===true ? md5($this->password) : $this->password;
-
-        $adapter = new $adapter($this->login, $password);
-
-        if (isset($this->adapterUrl)) {
-            $adapter->url = $this->adapterUrl;
-        }
-
-        if ($this->adapterDebug === true) {
-            $adapter->debug = $this->adapterDebug;
-        }
-
-        $this->adapterInstance = $adapter;
     }
 
-    /**
-     * @todo повесить на интерфейс
-     * @return mixed
-     */
-    public function getAdapterInstance()
-    {
-        return $this->adapterInstance;
-    }
 
     /**
      * @return int
@@ -173,21 +85,11 @@ class ProviderEntity extends AbstractEntity implements ProviderEntityInterface
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isPasswordMd5(): bool
+    public function getLogin(): string
     {
-        return $this->passwordMd5;
-    }
-
-    /**
-     * @param bool $passwordMd5
-     * @return ProviderEntity
-     */
-    public function setPasswordMd5(bool $passwordMd5): ProviderEntity
-    {
-        $this->passwordMd5 = $passwordMd5;
-        return $this;
+        return $this->login;
     }
 
     /**
@@ -245,14 +147,18 @@ class ProviderEntity extends AbstractEntity implements ProviderEntityInterface
     }
 
     /**
-     * @param array $senders
+     * @param string $senders
      * @return ProviderEntity
      */
-    public function setSender(array $senders): ProviderEntity
+    public function setSender(string $senders): ProviderEntity
     {
         $this->sender = $senders;
         return $this;
     }
 
 
+    public function getAdapterInstance()
+    {
+        // TODO: Implement getAdapterInstance() method.
+    }
 }

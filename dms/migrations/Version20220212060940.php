@@ -19,21 +19,19 @@ final class Version20220212060940 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE "Provider" (id BIGINT NOT NULL,
-                                                    customerId TEXT  NOT NULL,
-                                                    login TEXT  NOT NULL,
-                                                    password TEXT  NOT NULL,
-                                                    sender TEXT  NOT NULL,
-                                                    adapter TEXT  NOT NULL,
+        $this->addSql('CREATE TABLE "Provider" (id BIGINT NOT NULL AUTO_INCREMENT,
+                                                    customer_id INT  NOT NULL,
+                                                    login varchar(255)  NOT NULL,
+                                                    password varchar(255)  NOT NULL,
+                                                    sender varchar(255)  NOT NULL,
+                                                    adapter varchar(255)  NOT NULL,
                                                     PRIMARY KEY(id))');
 
-        $this->addSql('COMMENT ON COLUMN "Provider".customerId IS \'(DC2Type:json_array)\'');
+        $this->addSql('COMMENT ON COLUMN "Provider".customer_id IS \'(DC2Type:json_array)\'');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP TABLE "Provider"');
-
     }
 }

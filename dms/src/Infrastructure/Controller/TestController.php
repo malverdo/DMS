@@ -19,14 +19,10 @@ class TestController extends AbstractController
         $providerService = ContainerFactory::build()->get('dms.provider.service');
         $providerRecord = new ProviderEntity();
         $providerRecord->setAdapter('sms');
-        $providerRecord->setAdapterDebug(true);
-        $providerRecord->setAdapterUrl('url');
         $providerRecord->setCustomerId(1);
         $providerRecord->setLogin('test');
-        $providerRecord->setNew(true);
         $providerRecord->setPassword('password');
-        $providerRecord->setPasswordMd5('passwordMd5');
-        $providerRecord->setSender(['20']);
+        $providerRecord->setSender(('SmsC'));
 
         $providerService->persist($providerRecord);
 

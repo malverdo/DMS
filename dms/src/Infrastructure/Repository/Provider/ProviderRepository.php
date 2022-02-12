@@ -26,7 +26,7 @@ class ProviderRepository extends AbstractRepository implements ProviderRepositor
 
     public function getTableName(): string
     {
-        return 'providers_senders';
+        return 'Provider';
     }
 
     public function getTableAlias(): string
