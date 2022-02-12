@@ -16,9 +16,17 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+            - '../src/Infrastructure/DependencyInjection/'
+            - '../src/Infrastructure/Entity/'
+            - '../src/Infrastructure/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\:
+        resource: '../src/Infrastructure/Controller/'
+        tags: [ 'controller.service_arguments' ]
+
+
+    # Классы с коннекторами к бд
+    dms.connection.postgres:
+        class: App\Infrastructure\Repository\BaseRepository\PostgresConnection
