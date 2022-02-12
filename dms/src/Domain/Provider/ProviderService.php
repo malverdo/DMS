@@ -65,10 +65,32 @@ class ProviderService
      */
     public function persist(ProviderEntityInterface $providerEntity): void
     {
-//        try {
+        try {
             $this->providerRepository->save($providerEntity);
-//        } catch (RepositoryException $ex) {
-//            throw new SmsMessageException($ex);
-//        }
+        } catch (RepositoryException $ex) {
+            throw new RepositoryException($ex);
+        }
+    }
+
+
+    /**
+     * @param string $customerId
+     * @return ProviderEntityInterface
+     */
+    public function getById(string $customerId): ProviderEntityInterface
+    {
+        $providers = $this->providerRepository->findById(
+            ProviderCriteria::create()->setFilterByCustomerId($customerId)
+        );
+
+        if (!$providers->count()) {
+            throw new ProviderException('providers not found');
+        }
+
+        if ($providers->count() > 1) {
+            throw new ProviderException('providers more 1');
+        }
+
+        return $providers->current();
     }
 }

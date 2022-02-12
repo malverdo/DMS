@@ -17,14 +17,16 @@ class TestController extends AbstractController
     public function test(): Response
     {
         $providerService = ContainerFactory::build()->get('dms.provider.service');
-        $providerRecord = new ProviderEntity();
-        $providerRecord->setAdapter('sms');
-        $providerRecord->setCustomerId(1);
-        $providerRecord->setLogin('test');
-        $providerRecord->setPassword('password');
-        $providerRecord->setSender(('SmsC'));
+//        $providerRecord = new ProviderEntity();
+//        $providerRecord->setAdapter('sms');
+//        $providerRecord->setCustomerId(1);
+//        $providerRecord->setLogin('test');
+//        $providerRecord->setPassword('password');
+//        $providerRecord->setSender(('SmsC'));
+//        $providerService->persist($providerRecord);
 
-        $providerService->persist($providerRecord);
+
+        $a = $providerService->getById(2);
 
         return $this->json([
             'message' => 'Welcome to your new controller!',

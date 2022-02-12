@@ -98,4 +98,12 @@ abstract class AbstractEntity implements EntityInterface
         return $this->id;
     }
 
+    /**
+     * @param int|string|null $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
 }

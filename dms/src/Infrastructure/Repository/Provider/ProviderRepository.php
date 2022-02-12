@@ -9,7 +9,7 @@ use App\Infrastructure\Repository\BaseRepository\AbstractRepository;
 use App\Infrastructure\Repository\BaseRepository\Contracts\CollectionInterface;
 use App\Infrastructure\Repository\BaseRepository\Contracts\EntityInterface;
 use App\Infrastructure\Repository\BaseRepository\Contracts\RepositoryCriteriaInterface;
-use App\Infrastructure\Repository\SmsMessage\ProviderCriteria;
+use App\Infrastructure\Repository\Provider\ProviderCriteria;
 use Yii;
 
 class ProviderRepository extends AbstractRepository implements ProviderRepositoryInterface
@@ -26,7 +26,7 @@ class ProviderRepository extends AbstractRepository implements ProviderRepositor
 
     public function getTableName(): string
     {
-        return 'Provider';
+        return '"Provider"';
     }
 
     public function getTableAlias(): string

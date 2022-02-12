@@ -27,10 +27,10 @@ interface RepositoryInterface
     public function countByCriteria(RepositoryCriteriaInterface $criteria): int;
 
     /**
-     * @param string $id
+     * @param object $id
      * @return EntityInterface|null
      */
-    public function findById(string $id): ?EntityInterface;
+    public function findById(object $id): ?EntityInterface;
 
     /**
      * @param RepositoryCriteriaInterface $criteria
