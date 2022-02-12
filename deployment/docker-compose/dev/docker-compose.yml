@@ -1,0 +1,35 @@
+version: '3'
+services:
+    web:
+        build:
+            context: /home/${HOMENAME}/${ROOTNAMEPROJECT}/deployment/docker/dev/nginx
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        volumes:
+            # config nginx
+            - /home/${HOMENAME}/${ROOTNAMEPROJECT}/deployment/nginx/${NAMEPROJECT}.conf:/etc/nginx/conf.d/${NAMEPROJECT}.conf
+            # передать папки
+            - /home/${HOMENAME}/${ROOTNAMEPROJECT}/${NAMEPROJECT}:/home/apps/${NAMEPROJECT}
+        depends_on:
+            - php
+    php:
+        build:
+            context: /home/${HOMENAME}/${ROOTNAMEPROJECT}/deployment/docker/dev/${NAMEPROJECT}
+            dockerfile: php-fpm.docker
+        # должны совпадать с путями из nginx
+        volumes:
+            - /home/${HOMENAME}/${ROOTNAMEPROJECT}/${NAMEPROJECT}:/home/apps/${NAMEPROJECT}
+    postgres:
+        build:
+            context: /home/${HOMENAME}/${ROOTNAMEPROJECT}/deployment/docker/dev/postgres
+            dockerfile: Dockerfile
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=root
+        ports: 
+            - "54321:5432"
+        volumes:
+            - /home/${HOMENAME}/${ROOTNAMEPROJECT}/deployment/db/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+            - /home/${HOMENAME}/${ROOTNAMEPROJECT}/deployment/postgres-data:/var/lib/postgresql/data
