@@ -25,6 +25,7 @@ class TestController extends AbstractController
 //        $providerRecord->setSender(('SmsC'));
 //        $providerService->persist($providerRecord);
 
+        // @Todo сделать регистрацию провайдера в таблицу provider
 
 //        $allProvider = $providerService->getByAll();
         $allProvider = $providerService->getById(3);

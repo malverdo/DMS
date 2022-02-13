@@ -96,7 +96,6 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
      */
     public function findById(RepositoryCriteriaInterface $criteria): ?CollectionInterface
     {
-
         return  $this->findByCriteria($criteria);
     }
 
