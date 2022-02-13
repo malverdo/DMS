@@ -39,9 +39,18 @@ services:
         arguments:
             - '@dms.connection.postgres'
 
+    dms.user.repository:
+        class: App\Infrastructure\Repository\User\UserRepository
+        arguments:
+            - '@dms.connection.postgres'
+
 
     # Конфигурация сервисов
     dms.provider.service:
         class: App\Domain\Provider\ProviderService
         arguments:
             - '@dms.provider.repository'
+    dms.user.service:
+        class: App\Domain\User\UserService
+        arguments:
+            - '@dms.user.repository'

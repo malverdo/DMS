@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Entity;
 
+use App\Domain\User\Contracts\UserEntityInterface;
 use App\Infrastructure\Repository\BaseRepository\AbstractEntity;
 use App\Infrastructure\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User extends AbstractEntity implements UserInterface
+class User extends AbstractEntity implements UserEntityInterface
 {
 
     /**

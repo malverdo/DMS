@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository\User;
 
+use App\Domain\User\Contracts\UserRepositoryInterface;
 use App\Infrastructure\Entity\User;
 use App\Infrastructure\Repository\BaseRepository\AbstractRepository;
 use App\Infrastructure\Repository\BaseRepository\Contracts\CollectionInterface;
@@ -10,7 +11,7 @@ use App\Infrastructure\Repository\BaseRepository\Contracts\RepositoryCriteriaInt
 
 /**
  */
-class UserRepository  extends AbstractRepository
+class UserRepository  extends AbstractRepository implements UserRepositoryInterface
 {
     public function getModel(): EntityInterface
     {

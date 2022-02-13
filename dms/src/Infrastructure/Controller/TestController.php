@@ -17,6 +17,7 @@ class TestController extends AbstractController
     public function test(): Response
     {
         $providerService = ContainerFactory::build()->get('dms.provider.service');
+
 //        $providerRecord = new ProviderEntity();
 //        $providerRecord->setAdapter('sms');
 //        $providerRecord->setCustomerId(1);
@@ -29,7 +30,12 @@ class TestController extends AbstractController
 
 //        $allProvider = $providerService->getByAll();
         $allProvider = $providerService->getById(3);
-        dd($allProvider);
+
+
+
+        $userService = ContainerFactory::build()->get('dms.user.service');
+        $a = $userService->getUserByLogin('malverdo');
+//        dd($userService);
 
 
         return $this->json([
