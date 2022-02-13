@@ -27,9 +27,9 @@ class UserService
 
     /**
      * @param string $login
-     * @return UserRepositoryInterface
+     * @return UserEntityInterface
      */
-    public function getUserByLogin(string $login): UserRepositoryInterface
+    public function getUserByLogin(string $login): UserEntityInterface
     {
         $providers = $this->userRepository->findByCriteria(
             UserCriteria::create()->setFilterByLogin($login)

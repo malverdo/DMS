@@ -50,9 +50,14 @@ class TestController extends AbstractController
 //        $userRecord->setNew(true);
 
         $userService = ContainerFactory::build()->get('dms.user.service');
-        $userService->getUserByLogin
-//        $a = $userService->persist($userRecord);
-//        dd($userService);
+        $a = $userService->getUserByLogin('malverdo');
+        $b = $a->getRoles();
+
+        if ($passwordHasher->isPasswordValid($a, 'malverdo')) {
+            dd($a->getPassword());
+        }
+//         $userService->persist($a);
+
 
 
         return $this->json([

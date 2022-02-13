@@ -124,6 +124,20 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
      * @param QueryBuilder $dbCriteria
      * @param RepositoryCriteriaInterface $criteria
      */
+    protected function modify(QueryBuilder $dbCriteria, RepositoryCriteriaInterface $criteria): void
+    {
+        $dbCriteria
+            ->select('*')
+            ->from($this->getTableName(), $this->getTableAlias())
+            ->setFirstResult($criteria->getOffset())
+            ->setMaxResults($criteria->getPageSize());
+    }
+
+
+    /**
+     * @param QueryBuilder $dbCriteria
+     * @param RepositoryCriteriaInterface $criteria
+     */
     protected function modifySort(QueryBuilder $dbCriteria, RepositoryCriteriaInterface $criteria): void
     {
         if ($criteria->getSortById() !== null) {

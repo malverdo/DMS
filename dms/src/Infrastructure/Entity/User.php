@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Accessor;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,16 +21,32 @@ class User extends AbstractEntity implements UserEntityInterface, PasswordAuthen
 {
 
     /**
+     * @SerializedName("id")
+     * @Type("int")
+     * @var int
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    protected $id;
+
+    /**
+     * @SerializedName("login")
+     * @Type("string")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $login;
 
     /**
+     * @SerializedName("roles")
+     * @Type("string")
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
+     * @SerializedName("password")
+     * @Type("string")
      * @var string
      */
     private $password;
@@ -68,10 +87,7 @@ class User extends AbstractEntity implements UserEntityInterface, PasswordAuthen
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
+        $roles = unserialize($this->roles);
         return array_unique($roles);
     }
 
@@ -93,10 +109,6 @@ class User extends AbstractEntity implements UserEntityInterface, PasswordAuthen
 
     public function setPassword(string $password ): self
     {
-//        $hashedPassword = $passwordHasher->hashPassword(
-//            $this,
-//            $password
-//        );
         $this->password = $password;
 
         return $this;
