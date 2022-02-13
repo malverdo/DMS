@@ -200,9 +200,14 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
      */
     private function prepareData(array $data): array
     {
+
         $prepareData = [];
         foreach ($data as $key => $value) {
-            $prepareData['"'.$key.'"'] = $value;
+            if (is_array($value)) {
+                $prepareData['"' . $key . '"'] = serialize($value);
+            } else {
+                $prepareData['"' . $key . '"'] = $value;
+            }
         }
         return $prepareData;
     }

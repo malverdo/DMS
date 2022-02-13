@@ -26,7 +26,7 @@ final class Version20220212060940 extends AbstractMigration
                                                     sender varchar(255)  NOT NULL,
                                                     adapter varchar(255)  NOT NULL)');
 
-        $this->addSql('COMMENT ON COLUMN "Provider".customer_id IS \'(DC2Type:json_array)\'');
+        $this->addSql('COMMENT ON COLUMN "Provider".customer_id IS \'(json_array)\'');
     }
 
     public function down(Schema $schema): void

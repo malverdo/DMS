@@ -6,6 +6,7 @@ use App\Domain\User\Contracts\UserEntityInterface;
 use App\Infrastructure\Repository\BaseRepository\AbstractEntity;
 use App\Infrastructure\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -13,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User extends AbstractEntity implements UserEntityInterface
+class User extends AbstractEntity implements UserEntityInterface, PasswordAuthenticatedUserInterface, UserInterface
 {
 
     /**
@@ -25,6 +26,11 @@ class User extends AbstractEntity implements UserEntityInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @var string
+     */
+    private $password;
 
 
     public function getLogin(): ?string
@@ -77,13 +83,23 @@ class User extends AbstractEntity implements UserEntityInterface
     }
 
     /**
-     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
-     *
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
-        return null;
+        return $this->password;
+    }
+
+
+    public function setPassword(string $password ): self
+    {
+//        $hashedPassword = $passwordHasher->hashPassword(
+//            $this,
+//            $password
+//        );
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
