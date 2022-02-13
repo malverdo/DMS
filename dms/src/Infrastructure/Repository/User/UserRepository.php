@@ -3,48 +3,52 @@
 namespace App\Infrastructure\Repository\User;
 
 use App\Infrastructure\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Infrastructure\Repository\BaseRepository\AbstractRepository;
+use App\Infrastructure\Repository\BaseRepository\Contracts\CollectionInterface;
+use App\Infrastructure\Repository\BaseRepository\Contracts\EntityInterface;
+use App\Infrastructure\Repository\BaseRepository\Contracts\RepositoryCriteriaInterface;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository
+class UserRepository  extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function getModel(): EntityInterface
     {
-        parent::__construct($registry, User::class);
+        return new User();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getCriteria(): RepositoryCriteriaInterface
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return UserCriteria::create();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function getTableName(): string
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return '"User"';
     }
-    */
+
+    public function getTableAlias(): string
+    {
+        return 'us';
+    }
+
+    public function getKeyName(): string
+    {
+        return 'id';
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findByCriteria(RepositoryCriteriaInterface $criteria): CollectionInterface
+    {
+        $dbCriteria = $this->dbConnection->createQueryBuilder();
+
+        $this->modifyQuery($dbCriteria, $criteria);
+        $this->modifySort($dbCriteria, $criteria);
+
+        $results = $dbCriteria->executeQuery()->fetchAllAssociative();
+
+        return new UserCollection($this->deserialize($results, User::class));
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Entity;
 
+use App\Infrastructure\Repository\BaseRepository\AbstractEntity;
 use App\Infrastructure\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -11,14 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User implements UserInterface
+class User extends AbstractEntity implements UserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -30,10 +25,6 @@ class User implements UserInterface
      */
     private $roles = [];
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getLogin(): ?string
     {
