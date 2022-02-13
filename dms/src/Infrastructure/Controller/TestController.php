@@ -54,7 +54,7 @@ class TestController extends AbstractController
         $b = $a->getRoles();
 
         if ($passwordHasher->isPasswordValid($a, 'malverdo')) {
-            dd($a->getPassword());
+            dd($a);
         }
 //         $userService->persist($a);
 
