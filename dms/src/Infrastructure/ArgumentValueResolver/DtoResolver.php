@@ -2,29 +2,34 @@
 
 namespace App\Infrastructure\ArgumentValueResolver;
 
+use App\Infrastructure\Factory\ContainerFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerBuilder;
 
 
 class DtoResolver implements ArgumentValueResolverInterface
 {
 
     /**
-     * @var SerializerInterface
+     * @var SerializerBuilder
      */
-    private $jsonSerializer;
+    private $serializer;
 
     /**
      * DtoResolver constructor.
      *
-     * @param SerializerInterface $serializer
-     * @param SerializerInterface $jsonSerializer
+     * @param SerializerBuilder $serializer
      */
-    public function __construct( SerializerInterface $jsonSerializer)
+    public function __construct(SerializerBuilder $serializer)
     {
-        $this->jsonSerializer = $jsonSerializer;
+        $this->serializer = $serializer::create()->build();
     }
 
 
@@ -46,7 +51,7 @@ class DtoResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument): \Generator
     {
         $content = $request->getContent();
-        $argumentObj = $this->jsonSerializer->deserialize($content, $argument->getType(), 'json');
+        $argumentObj = $this->serializer->deserialize($content, $argument->getType(), 'json');
 
 
         yield $argumentObj;
