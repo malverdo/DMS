@@ -1,3 +1,6 @@
 index:
     path: /test
     controller: App\Infrastructure\Controller\TestController::test
+registration:
+    path: /registration
+    controller: App\Infrastructure\Controller\Registration\RegistrationController::registration
