@@ -3,6 +3,12 @@ jms_serializer:
         xml_serialization:
             format_output: '%kernel.debug%'
 
+#metadata:
+#    auto_detection: false
+#    directories:
+#        RegistrationDto:
+#            namespace_prefix: "App\\Infrastructure\\Entity"
+#            path: "%kernel.project_dir%/Resources/Serializer/User.yml"
 
 # возможность пользоватся Builder
 # JMS\Serializer\SerializerBuilder::create()->build()
@@ -12,12 +18,4 @@ services:
 
 
 
-#    metadata:
-#        auto_detection: false
-#        directories:
-#            any-name:
-#                namespace_prefix: "My\\FooBundle"
-#                path: "@MyFooBundle/Resources/config/serializer"
-#            another-name:
-#                namespace_prefix: "My\\BarBundle"
-#                path: "@MyBarBundle/Resources/config/serializer"
+

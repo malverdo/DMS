@@ -54,8 +54,12 @@ services:
         class: App\Domain\User\UserService
         arguments:
             - '@dms.user.repository'
-            -
+
     # Конфигурация DTO resolver
     App\Infrastructure\ArgumentValueResolver\DtoResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
+
+
+    user:
+        class: App\Infrastructure\Entity\User
