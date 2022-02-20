@@ -19,6 +19,7 @@ final class Version20220213074918 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        // TODO сделать логин уникальным
         $this->addSql('CREATE TABLE "User" (id SERIAL PRIMARY KEY,
                                                     login varchar(255)  NOT NULL,
                                                     password varchar(255)  NOT NULL,

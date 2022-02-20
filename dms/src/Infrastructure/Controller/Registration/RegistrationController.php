@@ -43,13 +43,13 @@ class RegistrationController  extends AbstractController
     public function registration(
         RegistrationRequest $registrationRequest
     ): Response {
-
+        // TODO проверка на уникальность логина перед записью
         $this->user->setLogin($registrationRequest->login);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $this->user,
             $registrationRequest->password
         );
-        $this->user->setRoles(["ADMIN",'MODER']);
+        $this->user->setRoles(["USER"]);
         $this->user->setPassword($hashedPassword);
         $this->userService->persist($this->user);
 
