@@ -13,7 +13,6 @@ use JMS\Serializer\ContextFactory\CallableSerializationContextFactory;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
-use ClickHouseDB\Client as Smi2CHClient;
 
 /**
  * Class AbstractRepository
@@ -218,7 +217,7 @@ abstract class AbstractRepository implements RepositoryInterface, TableIdentific
         $prepareData = [];
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $prepareData['"' . $key . '"'] = serialize($value);
+                $prepareData['"' . $key . '"'] = json_encode($value);
             } else {
                 $prepareData['"' . $key . '"'] = $value;
             }

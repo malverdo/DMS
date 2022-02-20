@@ -82,10 +82,11 @@ class User extends AbstractEntity implements UserEntityInterface, PasswordAuthen
 
     /**
      * @see UserInterface
+     * @return string|array
      */
     public function getRoles(): array
     {
-        $roles = unserialize($this->roles);
+        $roles = json_decode($this->roles);
         return array_unique($roles);
     }
 
