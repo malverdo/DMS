@@ -6,12 +6,10 @@ use App\Domain\User\Contracts\UserEntityInterface;
 use App\Infrastructure\Repository\BaseRepository\AbstractEntity;
 use App\Infrastructure\Repository\User\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Accessor;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
