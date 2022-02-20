@@ -22,9 +22,9 @@ final class Version20220213074918 extends AbstractMigration
         $this->addSql('CREATE TABLE "User" (id SERIAL PRIMARY KEY,
                                                     login varchar(255)  NOT NULL,
                                                     password varchar(255)  NOT NULL,
-                                                    roles TEXT  NOT NULL)');
+                                                    roles JSON  NOT NULL)');
 
-        $this->addSql('COMMENT ON COLUMN "User".roles IS \'(serialize)\'');
+        $this->addSql('COMMENT ON COLUMN "User".roles IS \' json \'');
 
     }
 
