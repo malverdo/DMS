@@ -43,6 +43,7 @@ class RegistrationController  extends AbstractController
     public function registration(
         RegistrationRequest $registrationRequest
     ): Response {
+        // TODO сделать валидацию на поле пароль и логин в validation.yaml
         // TODO проверка на уникальность логина перед записью
         $this->user->setLogin($registrationRequest->login);
         $hashedPassword = $this->passwordHasher->hashPassword(
