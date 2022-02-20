@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\SerializedName;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User extends AbstractEntity implements UserEntityInterface, PasswordAuthenticatedUserInterface, UserInterface
+class User extends AbstractEntity implements UserEntityInterface, PasswordAuthenticatedUserInterface
 {
 
     /**
@@ -38,9 +38,9 @@ class User extends AbstractEntity implements UserEntityInterface, PasswordAuthen
     /**
      * @SerializedName("roles")
      * @Type("string")
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @SerializedName("password")
@@ -81,16 +81,14 @@ class User extends AbstractEntity implements UserEntityInterface, PasswordAuthen
     }
 
     /**
-     * @see UserInterface
-     * @return string|array
+     * @return string
      */
-    public function getRoles(): array
+    public function getRoles(): string
     {
-        $roles = json_decode($this->roles);
-        return array_unique($roles);
+        return $this->roles;
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(string $roles): self
     {
         $this->roles = $roles;
 

@@ -49,7 +49,7 @@ class RegistrationController  extends AbstractController
             $this->user,
             $registrationRequest->password
         );
-        $this->user->setRoles(["USER"]);
+        $this->user->setRoles("USER");
         $this->user->setPassword($hashedPassword);
         $this->userService->persist($this->user);
 

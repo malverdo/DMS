@@ -4,3 +4,5 @@ App\Domain\Dto\RegistrationRequest:
   properties:
     login:
       - NotBlank: {message: 'нет поле "login"'}
+    password:
+      - NotBlank: { message: 'нет поле "password"' }

@@ -17,9 +17,9 @@ interface UserEntityInterface
     public function getUsername(): string;
 
     /**
-     * @return array
+     * @return string
      */
-    public function getRoles(): array;
+    public function getRoles(): string;
 
 
     /**
