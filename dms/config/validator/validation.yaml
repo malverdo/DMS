@@ -1,4 +1,6 @@
 App\Domain\Dto\RegistrationRequest:
+  constraints:
+    - Callback: validate
   properties:
     login:
-      - NotBlank: ~
+      - NotBlank: {message: 'нет поле "login"'}

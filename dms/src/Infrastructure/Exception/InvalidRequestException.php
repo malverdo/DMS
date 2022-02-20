@@ -2,9 +2,11 @@
 
 namespace App\Infrastructure\Exception;
 
+
+
 class InvalidRequestException  extends  \Exception
 {
-    const MESSAGE = 'В запросе к процессингу обнаружена ошибка или неверный вид XML';
+    const MESSAGE = 'В запросе обнаружена ошибка или неверный вид JSON';
 
     /**
      * @var string
