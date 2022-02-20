@@ -61,5 +61,5 @@ services:
             - { name: controller.argument_value_resolver, priority: 50 }
 
 
-    user:
+    dms.user:
         class: App\Infrastructure\Entity\User
